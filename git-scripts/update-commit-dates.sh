@@ -57,6 +57,13 @@ if ! git rev-parse --git-dir > /dev/null 2>&1; then
     exit 1
 fi
 
+# Change to git repository root
+GIT_ROOT=$(git rev-parse --show-toplevel)
+cd "$GIT_ROOT" || {
+    print_error "Could not change to git repository root"
+    exit 1
+}
+
 # Check parameters
 if [ $# -lt 1 ]; then
     print_error "Missing required parameter: start-date"
